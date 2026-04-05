@@ -29,6 +29,21 @@ export default function GeneratorPage({ onAddSR, prefill }) {
     localStorage.setItem("draft_urgency", urgency);
   }, [issue, module, urgency]);
 
+  useEffect(() => {
+    const wakeUpAPI = async () => {
+      try {
+        const res = await fetch(`${BASE_URL}/`);
+        if (res.ok) {
+          const data = await res.json();
+          console.log("Backend Woken Up:", data);
+        }
+      } catch (err) {
+        console.error("Waking up API failed:", err);
+      }
+    };
+    wakeUpAPI();
+  }, []);
+
   const handleGenerate = async (isRegenerate = false) => {
     if (!issue.trim()) { setInputError(true); setTimeout(() => setInputError(false), 2000); return; }
 
