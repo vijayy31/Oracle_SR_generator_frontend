@@ -35,10 +35,10 @@ export default function GeneratorPage({ onAddSR, prefill }) {
         const res = await fetch(`${BASE_URL}/`);
         if (res.ok) {
           const data = await res.json();
-          console.log("Backend Woken Up:", data);
+          console.log("Status:", data);
         }
       } catch (err) {
-        console.error("Waking up API failed:", err);
+        console.error("API failed:", err);
       }
     };
     wakeUpAPI();
