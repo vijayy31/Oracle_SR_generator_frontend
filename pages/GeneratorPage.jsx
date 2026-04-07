@@ -133,7 +133,7 @@ export default function GeneratorPage({ onAddSR, prefill }) {
 
     setIssue("");
     setModule("Procurement");
-    setUrgency("High");
+    setUrgency("Medium");
   };
 
   return (
