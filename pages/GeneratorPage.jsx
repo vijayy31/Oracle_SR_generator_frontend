@@ -12,6 +12,7 @@ export default function GeneratorPage({ onAddSR, prefill }) {
   const [output, setOutput] = useState(null);
   const [copied, setCopied] = useState(false);
   const [inputError, setInputError] = useState(false);
+  const [wordCountErr, setWordCountErr] = useState(false);
   const [timeoutErr, setTimeoutErr] = useState(false);
   const [hasRegenerated, setHasRegenerated] = useState(false);
   const [quotaCount, setQuotaCount] = useState(() => {
@@ -45,7 +46,16 @@ export default function GeneratorPage({ onAddSR, prefill }) {
   }, []);
 
   const handleGenerate = async (isRegenerate = false) => {
-    if (!issue.trim()) { setInputError(true); setTimeout(() => setInputError(false), 2000); return; }
+    const wordCount = issue.trim().split(/\s+/).filter(Boolean).length;
+    if (wordCount < 10) { 
+      setInputError(true); 
+      setWordCountErr(true);
+      setTimeout(() => {
+        setInputError(false);
+        setWordCountErr(false);
+      }, 3000); 
+      return; 
+    }
 
     const today = new Date().toDateString();
     let quota = { date: today, count: 0 };
@@ -173,6 +183,11 @@ export default function GeneratorPage({ onAddSR, prefill }) {
                 onFocus={(e) => e.target.style.boxShadow = `0 0 0 2px ${C.primaryContainer}`}
                 onBlur={(e) => e.target.style.boxShadow = "none"}
               />
+              {wordCountErr && (
+                <div style={{ color: C.error, fontSize: 13, marginTop: 6, fontWeight: 500 }}>
+                  Please enter a minimum of 10 words to proceed.
+                </div>
+              )}
             </div>
 
             {/* Module + Urgency */}
