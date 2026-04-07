@@ -180,7 +180,7 @@ export default function GeneratorPage({ onAddSR, prefill }) {
               <div>
                 <label style={styles.label}>Module</label>
                 <select value={module} onChange={(e) => setModule(e.target.value)} style={styles.select}>
-                  {["PIM", "Procurement", "SCM", "HCM", "Financials", "Inventory", "Others"].map(m => (
+                  {["PIM", "Procurement", "SCM", "HCM", "Financials", "Inventory","Order Management", "Others"].map(m => (
                     <option key={m}>{m}</option>
                   ))}
                 </select>
